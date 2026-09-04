@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-ssr/
+*.log
+*.local
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+.vscode/
+.idea/
+coverage/
