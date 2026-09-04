@@ -1,4 +1,3 @@
-```groovy
 pipeline {
     agent any
 
@@ -46,10 +45,8 @@ pipeline {
             steps {
                 sh 'sleep 15'
 
-                // Check backend container is running
                 sh 'docker inspect -f "{{.State.Running}}" student-management-server | grep true'
 
-                // Check frontend container is running
                 sh 'docker inspect -f "{{.State.Running}}" student-management-client | grep true'
 
                 echo 'Health Check Passed - Both containers are running'
@@ -83,4 +80,3 @@ pipeline {
         }
     }
 }
-```
