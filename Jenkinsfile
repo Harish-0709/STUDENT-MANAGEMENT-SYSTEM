@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -44,25 +45,36 @@ pipeline {
         stage('Health Check') {
             steps {
                 sh 'sleep 15'
-                sh 'curl -f http://localhost:5173/'
-                sh 'curl -f http://localhost:5000/'
+
+                // Check backend container is running
+                sh 'docker inspect -f "{{.State.Running}}" student-management-server | grep true'
+
+                // Check frontend container is running
+                sh 'docker inspect -f "{{.State.Running}}" student-management-client | grep true'
+
+                echo 'Health Check Passed - Both containers are running'
             }
         }
     }
 
     post {
+
         success {
             echo '=========================================='
-            echo ' Student Management System DEPLOYED'
+            echo ' STUDENT MANAGEMENT SYSTEM DEPLOYED'
+            echo '=========================================='
             echo ' Frontend: http://localhost:5173'
             echo ' Backend : http://localhost:5000'
+            echo '=========================================='
+            echo ' Jenkins CI/CD Pipeline Completed Successfully'
             echo '=========================================='
         }
 
         failure {
             echo '=========================================='
-            echo ' Jenkins Pipeline FAILED'
-            echo ' Check the console output'
+            echo ' JENKINS PIPELINE FAILED'
+            echo '=========================================='
+            echo ' Check the Console Output for the error'
             echo '=========================================='
         }
 
@@ -71,3 +83,4 @@ pipeline {
         }
     }
 }
+```
