@@ -78,5 +78,6 @@ pipeline {
         always {
             sh 'docker compose ps || true'
         }
+        
     }
 }
